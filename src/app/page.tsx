@@ -32,7 +32,7 @@ type NoteItem = {
 const ITEMS_PER_PAGE = 6
 const portfolioThumbnails = {
   orangeCode:
-    'https://images.unsplash.com/photo-1763568258244-9d5aa9c3ce45?auto=format&fit=crop&fm=jpg&q=80&w=1600',
+    'https://images.unsplash.com/photo-1605379399642-870262d3d051?q=80&w=1806&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   neonLaptop:
     'https://images.unsplash.com/photo-1763568258143-904ea924ac53?auto=format&fit=crop&fm=jpg&q=80&w=1600',
   orangeMug:
@@ -831,7 +831,7 @@ function AboutContent() {
           About Me
         </p>
         <h2 className="mt-3 font-display text-2xl/8 font-semibold text-gray-950 dark:text-white">
-          Roman King Garcia
+          R King Garcia
         </h2>
         <p className="mt-4 text-sm/6 text-gray-600 dark:text-gray-300">
           Web developer and designer based in Angeles City, Pampanga with over
