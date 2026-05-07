@@ -5,7 +5,7 @@ import { Logo } from '@/components/Logo'
 import { SignUpForm } from '@/components/SignUpForm'
 import { ThemeToggle } from '@/components/ThemeToggle'
 
-type Section = 'portfolio' | 'notes' | 'about' | 'client'
+type Section = 'portfolio' | 'notes' | 'about'
 
 function PortfolioIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -114,13 +114,6 @@ Modern web experiences designed with clarity, built with structure, and focused 
           </MenuButton>
         ))}
       </div>
-      <button
-        type="button"
-        onClick={() => onSelectSection?.('client')}
-        className="mt-5 hidden w-fit rounded-lg px-2 py-0.5 text-[0.8125rem]/6 font-medium text-white/60 transition hover:bg-white/5 hover:text-orange-300 lg:inline-flex"
-      >
-        Open workspace -&gt;
-      </button>
     </>
   )
 }

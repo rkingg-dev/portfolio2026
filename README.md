@@ -4,7 +4,7 @@ Modern web experiences designed with clarity, built with structure, and focused 
 
 This project started as a personal portfolio, but eventually evolved into a larger experimental workspace where I can continuously improve my workflow, design systems, and full stack development skills using Next.js and Supabase.
 
-The goal of this project is not only to showcase selected work, but also to create a real environment for exploring frontend architecture, backend systems, UI/UX direction, authentication flows, API handling, dashboards, and client management tools.
+The goal of this project is not only to showcase selected work, but also to create a real environment for exploring frontend architecture, backend systems, UI/UX direction, API handling, and client-focused workflows.
 
 ---
 
@@ -15,7 +15,6 @@ Portfolio2026 is a personal web platform focused on:
 - Portfolio presentation
 - Full stack experimentation
 - Client portal concepts
-- Personal dashboard systems
 - Backend and API practice
 - UI/UX exploration
 - Modern deployment workflows
@@ -93,7 +92,6 @@ CONTACT_CC=your@email.com
 - Dark mode support
 - Smooth UI transitions
 - Client-area concept UI
-- Personal dashboard planning structure
 
 ---
 
@@ -140,7 +138,6 @@ Planned direction includes:
 - Secure client portal
 - Project and task management
 - Notes and documentation system
-- Admin dashboard
 - Finance tracking
 - Role-based access
 - CMS-like content management

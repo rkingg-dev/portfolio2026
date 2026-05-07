@@ -8,7 +8,7 @@ import { GhostMark } from '@/components/Logo'
 import { StarField } from '@/components/StarField'
 import { ThemeToggle } from '@/components/ThemeToggle'
 
-type Section = 'portfolio' | 'notes' | 'about' | 'client'
+type Section = 'portfolio' | 'notes' | 'about'
 
 function Glow() {
   let id = useId()
@@ -151,18 +151,6 @@ function DevIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
-function ClientIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
-  return (
-    <svg viewBox="0 0 16 16" aria-hidden="true" fill="currentColor" {...props}>
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M4.75 6.5V4.75a3.25 3.25 0 0 1 6.5 0V6.5H12A1.5 1.5 0 0 1 13.5 8v5A1.5 1.5 0 0 1 12 14.5H4A1.5 1.5 0 0 1 2.5 13V8A1.5 1.5 0 0 1 4 6.5h.75Zm1.5 0h3.5V4.75a1.75 1.75 0 1 0-3.5 0V6.5Z"
-      />
-    </svg>
-  )
-}
-
 function MobileHeader({ visible }: { visible: boolean }) {
   return (
     <header
@@ -200,12 +188,11 @@ function MobileFooter({
     { label: 'Selected Work', section: 'portfolio' as const, icon: PortfolioIcon },
     { label: 'Notes', section: 'notes' as const, icon: NotesIcon },
     { label: 'R KINGG', section: 'about' as const, icon: DevIcon },
-    { label: 'Client Area', section: 'client' as const, icon: ClientIcon },
   ]
 
   return (
     <footer className="fixed inset-x-0 bottom-0 z-50 px-4 pb-[calc(env(safe-area-inset-bottom)+0.65rem)] lg:hidden">
-      <nav className="mx-auto grid max-w-[17rem] grid-cols-4 gap-1 rounded-full border border-orange-300/20 bg-gray-950/60 p-1 shadow-2xl shadow-black/25 backdrop-blur-2xl supports-[backdrop-filter]:bg-gray-950/45">
+      <nav className="mx-auto grid max-w-[13rem] grid-cols-3 gap-1 rounded-full border border-orange-300/20 bg-gray-950/60 p-1 shadow-2xl shadow-black/25 backdrop-blur-2xl supports-[backdrop-filter]:bg-gray-950/45">
         {items.map((item) => (
           <button
             key={item.section}
@@ -381,9 +368,7 @@ export function Layout({
         onWheel={handleSelectorWheel}
         className={clsx(
           'relative flex-auto pb-24 lg:h-screen lg:overscroll-contain lg:scroll-smooth lg:scroll-py-[38vh] lg:pb-0',
-          activeSection === 'client'
-            ? 'lg:overflow-hidden'
-            : 'lg:snap-y lg:snap-mandatory lg:overflow-y-auto',
+          'lg:snap-y lg:snap-mandatory lg:overflow-y-auto',
         )}
       >
         <main>{children}</main>

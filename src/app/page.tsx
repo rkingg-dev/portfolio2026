@@ -8,7 +8,7 @@ import clsx from 'clsx'
 
 import { Layout } from '@/components/Layout'
 
-type Section = 'portfolio' | 'notes' | 'about' | 'client'
+type Section = 'portfolio' | 'notes' | 'about'
 
 type PortfolioItem = {
   slug: string
@@ -922,106 +922,6 @@ function AboutContent() {
   )
 }
 
-function ClientLoginContent() {
-  return (
-    <ContentShell>
-      <div className="lg:flex lg:min-h-screen lg:snap-center lg:items-start lg:pt-[24vh] lg:pb-16">
-        <div className="w-full">
-        <p className="text-2xs/4 font-semibold uppercase tracking-[0.14em] text-orange-500">
-          Client Area
-        </p>
-        <h2 className="mt-3 font-display text-2xl/8 font-semibold text-gray-950 dark:text-white">
-          Project dashboard access
-        </h2>
-        <p className="mt-4 text-sm/6 text-gray-600 dark:text-gray-300">
-          Private project notes, previews, approvals, and handoff files live
-          here. Access flow is still being wired up, so this preview stays
-          parked for now.
-        </p>
-
-        <form className="mt-8 overflow-hidden rounded-2xl border border-gray-900/10 bg-gray-950 shadow-2xl shadow-gray-950/10 dark:border-white/10">
-          <div className="border-b border-white/10 bg-gray-900/80 px-5 py-4">
-            <div className="flex items-center justify-between gap-x-4">
-              <div className="flex min-w-0 items-center gap-x-3">
-                <span className="grid h-8 w-8 flex-none place-items-center rounded-lg bg-orange-400/10 text-orange-300 ring-1 ring-orange-400/30">
-                  <svg
-                    viewBox="0 0 16 16"
-                    aria-hidden="true"
-                    className="h-4 w-4"
-                  >
-                    <path
-                      fill="currentColor"
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M4.75 6.5V4.75a3.25 3.25 0 0 1 6.5 0V6.5H12A1.5 1.5 0 0 1 13.5 8v5A1.5 1.5 0 0 1 12 14.5H4A1.5 1.5 0 0 1 2.5 13V8A1.5 1.5 0 0 1 4 6.5h.75Zm1.5 0h3.5V4.75a1.75 1.75 0 1 0-3.5 0V6.5Z"
-                    />
-                  </svg>
-                </span>
-                <div className="min-w-0">
-                  <p className="truncate text-sm/6 font-semibold text-white">
-                    secure.rkingg/client
-                  </p>
-                  <p className="text-xs/5 text-gray-500">private workspace</p>
-                </div>
-              </div>
-              <span className="rounded-full bg-emerald-400/10 px-2.5 py-1 text-xs/5 font-semibold text-emerald-300 ring-1 ring-emerald-400/20">
-                Preview
-              </span>
-            </div>
-          </div>
-
-          <div className="space-y-4 px-5 py-5">
-            <div>
-              <label
-                htmlFor="client-email"
-                className="text-xs/5 font-semibold text-gray-400"
-              >
-                Email
-              </label>
-              <input
-                id="client-email"
-                type="email"
-                placeholder="client@email.com"
-                className="mt-2 w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2.5 text-sm/6 text-white placeholder:text-gray-600 focus:border-orange-300 focus:outline-hidden"
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="client-password"
-                className="text-xs/5 font-semibold text-gray-400"
-              >
-                Password
-              </label>
-              <input
-                id="client-password"
-                type="password"
-                placeholder="********"
-                className="mt-2 w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2.5 text-sm/6 text-white placeholder:text-gray-600 focus:border-orange-300 focus:outline-hidden"
-              />
-            </div>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-between gap-4 border-t border-white/10 bg-gray-900/80 px-5 py-4">
-            <div className="flex items-center gap-x-2 text-xs/5 text-gray-500">
-              <span className="h-2 w-2 rounded-full bg-orange-300" />
-              Access reveals private company and project data.
-            </div>
-            <button
-              type="button"
-              className="group relative isolate rounded-md px-3 py-1.5 text-sm/6 font-semibold text-white"
-            >
-              <span className="absolute inset-0 rounded-md bg-linear-to-b from-white/80 to-white opacity-10 transition-opacity group-hover:opacity-15" />
-              <span className="absolute inset-0 rounded-md opacity-7.5 shadow-[inset_0_1px_1px_white] transition-opacity group-hover:opacity-10" />
-              Client access soon
-            </button>
-          </div>
-        </form>
-        </div>
-      </div>
-    </ContentShell>
-  )
-}
-
 export default function Home() {
   const [section, setSection] = useState<Section>('portfolio')
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null)
@@ -1120,10 +1020,8 @@ export default function Home() {
                 })
               }
             />
-          ) : section === 'about' ? (
-            <AboutContent />
           ) : (
-            <ClientLoginContent />
+            <AboutContent />
           )}
         </div>
       </ContentTransition>
