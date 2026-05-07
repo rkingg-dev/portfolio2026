@@ -1,15 +1,28 @@
 import nodemailer from 'nodemailer'
+import { createClient } from '@supabase/supabase-js'
 
 export const runtime = 'nodejs'
 
 const SMTP_TIMEOUT_MS = 9000
 const CONTACT_ERROR_MESSAGE = 'Message could not be sent right now.'
+const CONTACT_SAVE_ERROR_MESSAGE = 'Message could not be saved right now.'
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000
+const RATE_LIMIT_MAX_SUBMISSIONS = 3
+
+const contactRateLimit = new Map<
+  string,
+  {
+    count: number
+    resetAt: number
+  }
+>()
 
 type ContactPayload = {
   email?: string
   requestType?: string
   title?: string
   message?: string
+  companyWebsite?: string
 }
 
 export function GET() {
@@ -23,6 +36,11 @@ function cleanHeaderValue(value: string) {
 function logContactEvent(
   event:
     | 'API route started'
+    | 'Supabase insert started'
+    | 'Supabase insert success'
+    | 'Supabase insert failure'
+    | 'Rate limit exceeded'
+    | 'Honeypot matched'
     | 'SMTP send started'
     | 'SMTP send success'
     | 'SMTP timeout'
@@ -46,6 +64,78 @@ function timeoutError() {
   let error = new Error('SMTP_SEND_TIMEOUT')
   error.name = 'TimeoutError'
   return error
+}
+
+function getRequestIp(request: Request) {
+  let forwardedFor = request.headers.get('x-forwarded-for')
+  let realIp = request.headers.get('x-real-ip')
+
+  return cleanHeaderValue(
+    forwardedFor?.split(',')[0] ?? realIp ?? 'unknown',
+  )
+}
+
+function isRateLimited(ip: string) {
+  let now = Date.now()
+  let current = contactRateLimit.get(ip)
+
+  if (!current || current.resetAt <= now) {
+    contactRateLimit.set(ip, {
+      count: 1,
+      resetAt: now + RATE_LIMIT_WINDOW_MS,
+    })
+
+    return false
+  }
+
+  if (current.count >= RATE_LIMIT_MAX_SUBMISSIONS) {
+    return true
+  }
+
+  current.count += 1
+  return false
+}
+
+async function saveContactMessage({
+  email,
+  requestType,
+  title,
+  message,
+}: {
+  email: string
+  requestType: string
+  title: string
+  message: string
+}) {
+  let supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  let serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+
+  if (!supabaseUrl || !serviceRoleKey) {
+    throw new Error('Missing Supabase environment variables.')
+  }
+
+  logContactEvent('Supabase insert started')
+
+  let supabase = createClient(supabaseUrl, serviceRoleKey, {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+    },
+  })
+
+  let { error } = await supabase.from('contact_messages').insert({
+    email,
+    request_type: requestType,
+    title,
+    message,
+    status: 'new',
+  })
+
+  if (error) {
+    throw error
+  }
+
+  logContactEvent('Supabase insert success')
 }
 
 async function sendMail({
@@ -122,6 +212,7 @@ async function sendMail({
 
 export async function POST(request: Request) {
   logContactEvent('API route started')
+  let ip = getRequestIp(request)
 
   let payload: ContactPayload
 
@@ -143,6 +234,20 @@ export async function POST(request: Request) {
   let requestType = cleanHeaderValue(payload.requestType ?? '')
   let title = cleanHeaderValue(payload.title ?? '')
   let message = String(payload.message ?? '').trim()
+  let companyWebsite = String(payload.companyWebsite ?? '').trim()
+
+  if (companyWebsite) {
+    logContactEvent('Honeypot matched', { ip })
+    return Response.json({ ok: true })
+  }
+
+  if (isRateLimited(ip)) {
+    logContactEvent('Rate limit exceeded', { ip })
+    return Response.json(
+      { error: 'Too many messages. Please try again later.' },
+      { status: 429 },
+    )
+  }
 
   if (!email || !requestType || !title || !message) {
     return Response.json(
@@ -155,6 +260,24 @@ export async function POST(request: Request) {
     return Response.json(
       { error: 'Please enter a valid email address.' },
       { status: 400 },
+    )
+  }
+
+  try {
+    await saveContactMessage({
+      email,
+      requestType,
+      title,
+      message,
+    })
+  } catch (error) {
+    logContactEvent('Supabase insert failure', {
+      error: error instanceof Error ? error.message : String(error),
+    })
+
+    return Response.json(
+      { error: CONTACT_SAVE_ERROR_MESSAGE },
+      { status: 500 },
     )
   }
 

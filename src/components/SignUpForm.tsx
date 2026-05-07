@@ -59,6 +59,7 @@ export function SignUpForm() {
   let [email, setEmail] = useState('')
   let [title, setTitle] = useState('')
   let [message, setMessage] = useState('')
+  let [companyWebsite, setCompanyWebsite] = useState('')
   let [requestType, setRequestType] = useState<RequestType>('project')
   let [isRequestTypeOpen, setIsRequestTypeOpen] = useState(false)
   let [isOpen, setIsOpen] = useState(false)
@@ -96,6 +97,7 @@ export function SignUpForm() {
           requestType: selectedRequestType.label,
           title,
           message,
+          companyWebsite,
         }),
       })
 
@@ -108,6 +110,7 @@ export function SignUpForm() {
       setEmail('')
       setTitle('')
       setMessage('')
+      setCompanyWebsite('')
     } catch (error) {
       setStatus('error')
       setStatusMessage(
@@ -159,6 +162,16 @@ export function SignUpForm() {
             onSubmit={sendRequest}
             className="modal-panel-enter relative w-full max-w-2xl overflow-hidden rounded-2xl border border-white/10 bg-gray-950 shadow-2xl shadow-orange-950/30"
           >
+            <input
+              type="text"
+              name="companyWebsite"
+              tabIndex={-1}
+              autoComplete="off"
+              value={companyWebsite}
+              onChange={(event) => setCompanyWebsite(event.target.value)}
+              className="hidden"
+              aria-hidden="true"
+            />
             <div className="flex items-center justify-between border-b border-white/10 bg-gray-900/80 px-5 py-4">
               <div className="flex min-w-0 items-center gap-x-3">
                 <svg
