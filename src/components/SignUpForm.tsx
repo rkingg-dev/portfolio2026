@@ -4,6 +4,9 @@ import { useId, useState } from 'react'
 
 import { Button } from '@/components/Button'
 
+const CONTACT_ERROR_MESSAGE = 'Message could not be sent right now.'
+const CONTACT_REQUEST_TIMEOUT_MS = 12000
+
 const requestTypes = {
   project: {
     label: 'new-project',
@@ -32,6 +35,24 @@ const requestTypes = {
 }
 
 type RequestType = keyof typeof requestTypes
+type ContactResponse = {
+  error?: string
+}
+
+async function readContactError(response: Response) {
+  let contentType = response.headers.get('content-type') ?? ''
+
+  if (contentType.includes('application/json')) {
+    try {
+      let data = (await response.json()) as ContactResponse
+      return data.error ?? CONTACT_ERROR_MESSAGE
+    } catch {
+      return CONTACT_ERROR_MESSAGE
+    }
+  }
+
+  return CONTACT_ERROR_MESSAGE
+}
 
 export function SignUpForm() {
   let id = useId()
@@ -57,12 +78,19 @@ export function SignUpForm() {
     setStatus('sending')
     setStatusMessage('')
 
+    let controller = new AbortController()
+    let timeoutId = setTimeout(
+      () => controller.abort(),
+      CONTACT_REQUEST_TIMEOUT_MS,
+    )
+
     try {
       let response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        signal: controller.signal,
         body: JSON.stringify({
           email,
           requestType: selectedRequestType.label,
@@ -70,16 +98,9 @@ export function SignUpForm() {
           message,
         }),
       })
-      let contentType = response.headers.get('content-type') ?? ''
-      let data = contentType.includes('application/json')
-        ? ((await response.json()) as { error?: string })
-        : null
 
       if (!response.ok) {
-        throw new Error(
-          data?.error ??
-            'Message endpoint is not available on the live server.',
-        )
+        throw new Error(await readContactError(response))
       }
 
       setStatus('sent')
@@ -90,10 +111,14 @@ export function SignUpForm() {
     } catch (error) {
       setStatus('error')
       setStatusMessage(
-        error instanceof Error
-          ? error.message
-          : 'Message could not be sent right now.',
+        error instanceof DOMException && error.name === 'AbortError'
+          ? CONTACT_ERROR_MESSAGE
+          : error instanceof Error
+            ? error.message
+            : CONTACT_ERROR_MESSAGE,
       )
+    } finally {
+      clearTimeout(timeoutId)
     }
   }
 
