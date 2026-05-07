@@ -70,10 +70,16 @@ export function SignUpForm() {
           message,
         }),
       })
-      let data = (await response.json()) as { error?: string }
+      let contentType = response.headers.get('content-type') ?? ''
+      let data = contentType.includes('application/json')
+        ? ((await response.json()) as { error?: string })
+        : null
 
       if (!response.ok) {
-        throw new Error(data.error ?? 'Message could not be sent.')
+        throw new Error(
+          data?.error ??
+            'Message endpoint is not available on the live server.',
+        )
       }
 
       setStatus('sent')

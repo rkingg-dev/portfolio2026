@@ -9,6 +9,10 @@ type ContactPayload = {
   message?: string
 }
 
+export function GET() {
+  return Response.json({ ok: true, service: 'contact' })
+}
+
 function cleanHeaderValue(value: string) {
   return value.replace(/[\r\n]+/g, ' ').trim()
 }
