@@ -36,14 +36,59 @@ type RequestType = keyof typeof requestTypes
 export function SignUpForm() {
   let id = useId()
   let [email, setEmail] = useState('')
+  let [title, setTitle] = useState('')
+  let [message, setMessage] = useState('')
   let [requestType, setRequestType] = useState<RequestType>('project')
   let [isRequestTypeOpen, setIsRequestTypeOpen] = useState(false)
   let [isOpen, setIsOpen] = useState(false)
+  let [status, setStatus] = useState<
+    'idle' | 'sending' | 'sent' | 'error'
+  >('idle')
+  let [statusMessage, setStatusMessage] = useState('')
   let selectedRequestType = requestTypes[requestType]
 
   function openRequestForm(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setIsOpen(true)
+  }
+
+  async function sendRequest(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setStatus('sending')
+    setStatusMessage('')
+
+    try {
+      let response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          requestType: selectedRequestType.label,
+          title,
+          message,
+        }),
+      })
+      let data = (await response.json()) as { error?: string }
+
+      if (!response.ok) {
+        throw new Error(data.error ?? 'Message could not be sent.')
+      }
+
+      setStatus('sent')
+      setStatusMessage('Message sent. I will reply soon.')
+      setEmail('')
+      setTitle('')
+      setMessage('')
+    } catch (error) {
+      setStatus('error')
+      setStatusMessage(
+        error instanceof Error
+          ? error.message
+          : 'Message could not be sent right now.',
+      )
+    }
   }
 
   return (
@@ -80,10 +125,7 @@ export function SignUpForm() {
             onClick={() => setIsOpen(false)}
           />
           <form
-            onSubmit={(event) => {
-              event.preventDefault()
-              setIsOpen(false)
-            }}
+            onSubmit={sendRequest}
             className="modal-panel-enter relative w-full max-w-2xl overflow-hidden rounded-2xl border border-white/10 bg-gray-950 shadow-2xl shadow-orange-950/30"
           >
             <div className="flex items-center justify-between border-b border-white/10 bg-gray-900/80 px-5 py-4">
@@ -173,12 +215,16 @@ export function SignUpForm() {
               <input
                 type="text"
                 required
+                value={title}
+                onChange={(event) => setTitle(event.target.value)}
                 placeholder={selectedRequestType.titlePlaceholder}
                 className="w-full border-l border-orange-300 bg-transparent pl-3 font-display text-xl/8 text-white placeholder:text-gray-500 focus:outline-hidden"
               />
               <textarea
                 required
                 rows={5}
+                value={message}
+                onChange={(event) => setMessage(event.target.value)}
                 placeholder={selectedRequestType.messagePlaceholder}
                 className="w-full resize-none bg-transparent text-sm/6 text-gray-300 placeholder:text-gray-600 focus:outline-hidden"
               />
@@ -198,13 +244,30 @@ export function SignUpForm() {
               <div className="flex items-center gap-x-2">
                 <button
                   type="button"
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    setIsOpen(false)
+                    setStatus('idle')
+                    setStatusMessage('')
+                  }}
                   className="rounded-md px-3 py-1.5 text-sm/6 font-semibold text-gray-400 transition hover:bg-white/5 hover:text-white"
                 >
                   Cancel
                 </button>
-                <Button type="submit">Send</Button>
+                <Button type="submit" disabled={status === 'sending'}>
+                  {status === 'sending' ? 'Sending...' : 'Send'}
+                </Button>
               </div>
+              {statusMessage ? (
+                <p
+                  className={
+                    status === 'error'
+                      ? 'basis-full text-xs/5 font-semibold text-rose-300'
+                      : 'basis-full text-xs/5 font-semibold text-emerald-300'
+                  }
+                >
+                  {statusMessage}
+                </p>
+              ) : null}
             </div>
           </form>
         </div>
