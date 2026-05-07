@@ -92,12 +92,10 @@ export function Intro({
         </Link>
       </div>
       <h1 className="mt-14 font-display text-4xl/tight font-light text-white">
-        Frontend work with <span className="text-orange-300">taste and intent</span>
+        More than visuals. <span className="text-orange-300">Designed to work.</span>
       </h1>
       <p className="mt-4 text-sm/6 text-gray-300">
-        Selected builds, interface notes, and project direction by RKINGG.
-        Clean systems, sharp visuals, and web experiences made to feel
-        deliberate from the first screen.
+Modern web experiences designed with clarity, built with structure, and focused on how people use products. Creating polished interfaces, seamless interactions, and reliable systems that stay clean after launch.
       </p>
       <p className="mt-4 text-xs/5 font-medium italic text-orange-300">
         Featured work is placeholder content for now. Use the contact field
