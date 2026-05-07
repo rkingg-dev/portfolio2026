@@ -644,7 +644,8 @@ function PortfolioList({
                   height={900}
                   className="aspect-[16/9] w-full object-cover transition duration-500 group-hover:scale-[1.02]"
                   sizes="(min-width: 1280px) 36rem, (min-width: 1024px) 45vw, (min-width: 640px) 32rem, 95vw"
-                  priority={item.slug === items[0].slug}
+                  priority={index < 2}
+                  loading={index < 2 ? undefined : 'lazy'}
                 />
               </div>
               <div className="mt-5 flex items-center gap-x-3 text-2xs/4 font-medium text-gray-500 dark:text-white/45">
