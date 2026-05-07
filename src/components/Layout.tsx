@@ -197,28 +197,29 @@ function MobileFooter({
   onSelectSection?: (section: Section) => void
 }) {
   let items = [
-    { label: 'Portfolio', section: 'portfolio' as const, icon: PortfolioIcon },
+    { label: 'Selected Work', section: 'portfolio' as const, icon: PortfolioIcon },
     { label: 'Notes', section: 'notes' as const, icon: NotesIcon },
     { label: 'R KINGG', section: 'about' as const, icon: DevIcon },
     { label: 'Client Area', section: 'client' as const, icon: ClientIcon },
   ]
 
   return (
-    <footer className="fixed inset-x-0 bottom-0 z-50 px-3 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] lg:hidden">
-      <nav className="mx-auto grid max-w-md grid-cols-4 gap-1 rounded-2xl border border-gray-950/10 bg-white/90 p-1.5 shadow-2xl shadow-gray-950/20 backdrop-blur-xl dark:border-white/10 dark:bg-gray-950/90 dark:shadow-black/30">
+    <footer className="fixed inset-x-0 bottom-0 z-50 px-4 pb-[calc(env(safe-area-inset-bottom)+0.65rem)] lg:hidden">
+      <nav className="mx-auto grid max-w-[17rem] grid-cols-4 gap-1 rounded-full border border-orange-300/20 bg-gray-950/60 p-1 shadow-2xl shadow-black/25 backdrop-blur-2xl supports-[backdrop-filter]:bg-gray-950/45">
         {items.map((item) => (
           <button
             key={item.section}
             type="button"
+            aria-label={item.label}
             onClick={() => onSelectSection?.(item.section)}
             className={
               activeSection === item.section
-                ? 'flex flex-col items-center gap-y-1 rounded-xl bg-gray-950 px-1.5 py-2 text-white shadow-sm dark:bg-white dark:text-gray-950'
-                : 'flex flex-col items-center gap-y-1 rounded-xl px-1.5 py-2 text-gray-500 transition hover:bg-gray-950/5 hover:text-gray-950 dark:text-white/45 dark:hover:bg-white/5 dark:hover:text-white'
+                ? 'grid h-10 place-items-center rounded-full bg-orange-300 text-gray-950 shadow-sm shadow-orange-500/30'
+                : 'grid h-10 place-items-center rounded-full text-white/55 transition hover:bg-white/8 hover:text-orange-200'
             }
           >
-            <item.icon className="h-5 w-5" />
-            <span className="text-[0.625rem]/4 font-semibold">
+            <item.icon className="h-4.5 w-4.5" />
+            <span className="sr-only">
               {item.label}
             </span>
           </button>

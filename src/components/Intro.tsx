@@ -38,7 +38,7 @@ function DevIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 }
 
 const navItems = [
-  { section: 'portfolio' as const, label: 'Portfolio', icon: PortfolioIcon },
+  { section: 'portfolio' as const, label: 'Selected Work', icon: PortfolioIcon },
   { section: 'notes' as const, label: 'Notes', icon: NotesIcon },
   { section: 'about' as const, label: 'R KINGG', icon: DevIcon },
 ]
@@ -98,8 +98,8 @@ export function Intro({
 Modern web experiences designed with clarity, built with structure, and focused on how people use products. Creating polished interfaces, seamless interactions, and reliable systems that stay clean after launch.
       </p>
       <p className="mt-4 text-xs/5 font-medium italic text-orange-300">
-        Featured work is placeholder content for now. Use the contact field
-        below for real project inquiries.
+        Featured projects are currently placeholder content. For real project
+        inquiries, please use the contact form below.
       </p>
       <SignUpForm />
       <div className="mt-8 hidden flex-wrap justify-center gap-x-1 gap-y-3 sm:gap-x-2 lg:flex lg:justify-start">
