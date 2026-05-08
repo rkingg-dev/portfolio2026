@@ -45,7 +45,7 @@ const portfolioItems: PortfolioItem[] = [
   {
     slug: 'studio-booking',
     title: 'Studio Booking Dashboard',
-    date: '2026-04-18',
+    date: '2022-04-18',
     description:
       'A compact scheduling flow for creative studios handling inquiries, deposits, and session calendars.',
     thumbnail: portfolioThumbnails.orangeCode,
@@ -60,7 +60,7 @@ const portfolioItems: PortfolioItem[] = [
   {
     slug: 'creator-site',
     title: 'Creator Portfolio System',
-    date: '2026-03-29',
+    date: '2022-03-29',
     description:
       'A personal site structure for publishing case studies, selected work, and short-form writing from one content model.',
     thumbnail: portfolioThumbnails.orangeMug,
@@ -75,7 +75,7 @@ const portfolioItems: PortfolioItem[] = [
   {
     slug: 'brand-console',
     title: 'Brand Console Prototype',
-    date: '2026-02-11',
+    date: '2022-02-11',
     description:
       'An internal prototype for managing brand assets, launch copy, and campaign handoff notes.',
     thumbnail: portfolioThumbnails.neonLaptop,
@@ -90,7 +90,7 @@ const portfolioItems: PortfolioItem[] = [
   {
     slug: 'learning-hub',
     title: 'Learning Hub Redesign',
-    date: '2026-01-24',
+    date: '2022-01-24',
     description:
       'A refreshed course browsing and lesson flow for a training platform with dense content needs.',
     thumbnail: portfolioThumbnails.orangeWorkspace,
@@ -105,7 +105,7 @@ const portfolioItems: PortfolioItem[] = [
   {
     slug: 'commerce-migration',
     title: 'Commerce Migration Toolkit',
-    date: '2025-12-08',
+    date: '2022-12-08',
     description:
       'A migration support interface for organizing product data, content checks, and launch tasks.',
     thumbnail: portfolioThumbnails.orangeCode,
@@ -120,7 +120,7 @@ const portfolioItems: PortfolioItem[] = [
   {
     slug: 'marketing-site-system',
     title: 'Marketing Site System',
-    date: '2025-10-17',
+    date: '2022-10-17',
     description:
       'A modular landing page system for campaign pages, lead capture, and fast iteration.',
     thumbnail: portfolioThumbnails.orangeMug,
@@ -135,7 +135,7 @@ const portfolioItems: PortfolioItem[] = [
   {
     slug: 'operations-portal',
     title: 'Operations Portal',
-    date: '2025-08-04',
+    date: '2022-08-04',
     description:
       'A private internal portal for tracking requests, documents, team updates, and approvals.',
     thumbnail: portfolioThumbnails.neonLaptop,
@@ -150,7 +150,7 @@ const portfolioItems: PortfolioItem[] = [
   {
     slug: 'booking-microsite',
     title: 'Booking Microsite',
-    date: '2025-06-19',
+    date: '2022-06-19',
     description:
       'A lightweight service booking site with clear packages, inquiry capture, and handoff notes.',
     thumbnail: portfolioThumbnails.orangeWorkspace,
@@ -165,7 +165,7 @@ const portfolioItems: PortfolioItem[] = [
   {
     slug: 'brand-guidelines-app',
     title: 'Brand Guidelines App',
-    date: '2025-04-02',
+    date: '2022-04-02',
     description:
       'A compact reference app for colors, typography, components, and downloadable assets.',
     thumbnail: portfolioThumbnails.orangeCode,
@@ -180,7 +180,7 @@ const portfolioItems: PortfolioItem[] = [
   {
     slug: 'client-handoff-space',
     title: 'Client Handoff Space',
-    date: '2025-02-12',
+    date: '2022-02-12',
     description:
       'A private handoff experience for project files, decisions, notes, and launch status.',
     thumbnail: portfolioThumbnails.orangeMug,
@@ -198,7 +198,7 @@ const notes: NoteItem[] = [
   {
     slug: 'portfolio-pages-that-work',
     title: 'Building portfolio pages that do actual work',
-    date: '2026-04-30',
+    date: '2022-04-30',
     description:
       'A short reflection on replacing generic showcase layouts with pages that explain decisions, constraints, and taste.',
     details: [
@@ -209,7 +209,7 @@ const notes: NoteItem[] = [
   {
     slug: 'small-interface-details',
     title: 'Small interface details I keep coming back to',
-    date: '2026-03-14',
+    date: '2022-03-14',
     description:
       'Notes on spacing, contrast, and navigation patterns that make a digital product feel easier to trust.',
     details: [
@@ -220,7 +220,7 @@ const notes: NoteItem[] = [
   {
     slug: 'client-confidence',
     title: 'Designing around client confidence',
-    date: '2026-02-22',
+    date: '2022-02-22',
     description:
       'How clear previews, restrained copy, and visible progress reduce friction during project delivery.',
     details: [
@@ -231,7 +231,7 @@ const notes: NoteItem[] = [
   {
     slug: 'quiet-dashboards',
     title: 'Why dashboards should feel quiet',
-    date: '2026-01-09',
+    date: '2022-01-09',
     description:
       'A note on making operational screens dense enough for work without turning them into visual noise.',
     details: [
@@ -242,7 +242,7 @@ const notes: NoteItem[] = [
   {
     slug: 'one-easy-homepage-decision',
     title: 'The homepage should make one decision easy',
-    date: '2025-12-18',
+    date: '2022-12-18',
     description:
       'Thoughts on simplifying first screens so visitors understand what to inspect, trust, or click next.',
     details: [
@@ -253,7 +253,7 @@ const notes: NoteItem[] = [
   {
     slug: 'small-site-shipping-check',
     title: 'What I check before shipping a small site',
-    date: '2025-11-06',
+    date: '2022-11-06',
     description:
       'A practical pass through responsive spacing, forms, metadata, speed, content rhythm, and client edits.',
     details: [
@@ -264,7 +264,7 @@ const notes: NoteItem[] = [
   {
     slug: 'cms-structure-interface',
     title: 'CMS structure is part of the interface',
-    date: '2025-09-27',
+    date: '2022-09-27',
     description:
       'Why a clean editing model matters just as much as the public-facing layout.',
     details: [
@@ -275,7 +275,7 @@ const notes: NoteItem[] = [
   {
     slug: 'visual-polish-usability',
     title: 'When visual polish becomes usability',
-    date: '2025-08-15',
+    date: '2022-08-15',
     description:
       'Small transitions, focus states, and alignment choices can make an interface feel easier to use.',
     details: [
@@ -286,7 +286,7 @@ const notes: NoteItem[] = [
   {
     slug: 'case-studies-need-constraints',
     title: 'Case studies need constraints',
-    date: '2025-06-03',
+    date: '2022-06-03',
     description:
       'A better project writeup explains tradeoffs, goals, and decisions instead of only showing screenshots.',
     details: [
@@ -297,7 +297,7 @@ const notes: NoteItem[] = [
   {
     slug: 'private-portals-tone',
     title: 'Private portals need a different tone',
-    date: '2025-04-21',
+    date: '2022-04-21',
     description:
       'Client-facing workspaces should feel calm, exact, and useful before they feel impressive.',
     details: [
