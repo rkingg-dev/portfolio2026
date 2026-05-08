@@ -363,7 +363,7 @@ const socialLinks = [
   },
   {
     label: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/rkingg',
+    href: 'https://www.linkedin.com/',
     icon: 'linkedin',
   },
 ]
